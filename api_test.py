@@ -2,14 +2,14 @@ import requests
 import json
 import pytest
 import allure
+from faker import Faker
 
 url = "https://auth2.fstravel.com/api/v1/account/sign-up-buyer"
-
 
 #1 Проверим, что в заголовке объекта resp передается контент в формате JSON с кодировкой UTF-8:
 
 def simple_req_test():
-    resp = requests.get({{url}})
+    resp = requests.get(url)
     assert resp.status_code == 200
     assert resp.headers["Content-Type"] == "application/json; charset=utf-8"
 
@@ -24,7 +24,7 @@ def test_ru():
         "grant_type" : 'client_credentials',
         "clientType" : 'b2c.public.client'
     }
-        response = requests.post({{url}}, params=reg_params)
+        response = requests.post(url, params=reg_params)
         assert response.status_code == 201
     
 # 3 регистрация с почтой в домене .com:
@@ -38,7 +38,7 @@ def test_com():
         "grant_type" : 'client_credentials',
         "clientType" : 'b2c.public.client'
     }
-        response2 = requests.post({{url}}, params=reg_params3)
+        response2 = requests.post(url, params=reg_params3)
         assert response2.status_code == 201
 
 # 4 регистрация только с обязательными полями
@@ -52,7 +52,7 @@ def test_field():
         "grant_type" : 'client_credentials',
         "clientType" : 'b2c.public.client'
     }
-        response3 = requests.post({{url}}, params=reg_params4)
+        response3 = requests.post(url, params=reg_params4)
         assert response3.status_code == 201
 
 # 5 Регистрация с максимальным количеством символов в пароле
@@ -66,5 +66,5 @@ def test_max():
         "grant_type" : 'client_credentials',
         "clientType" : 'b2c.public.client'
     }
-        response3 = requests.post({{url}}, params=reg_params5)
+        response3 = requests.post(url, params=reg_params5)
         assert response3.status_code == 201
