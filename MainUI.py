@@ -1,14 +1,19 @@
 import allure
+from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver import ActionChains
+
+MAIN_URL = "https://fstravel.com/"
 
 class MainPage:
       def __init__(self, driver):
         self._driver = driver
-        self._driver.get("https://fstravel.com/")
-        self._driver.implicitly_wait(4)
-        self._driver.maximize_window()
+        self._driver.get(MAIN_URL)
+        self.actions = ActionChains(driver)  # Двоной клик
+        self.wait = WebDriverWait(driver, 12)  # Ожидание 10 сек
 
       with allure.step("Работоспособность кнопки Подобрать тур"):
           def podobrat_tour(self,term):
